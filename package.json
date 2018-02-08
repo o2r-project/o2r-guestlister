@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LukasLohoff/o2r-guestlister.git"
+    "url": "git+https://github.com/o2r-project/o2r-guestlister.git"
   },
   "author": "o2r project (http://o2r.info)",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/LukasLohoff/o2r-guestlister/issues"
+    "url": "https://github.com/o2r-project/o2r-guestlister/issues"
   },
-  "homepage": "https://github.com/LukasLohoff/o2r-guestlister#readme"
+  "homepage": "https://github.com/o2r-project/o2r-guestlister#readme"
 }
