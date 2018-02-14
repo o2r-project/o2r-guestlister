@@ -5,10 +5,12 @@ const errorHandler = require('errorhandler');
 const session = require('express-session');
 const passport = require('passport');
 const routes = require('./routes');
+const debug = require('debug')('guestlister');
 
 // Express configuration
 const app = express();
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/css'));
 app.use(cookieParser());
 app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
