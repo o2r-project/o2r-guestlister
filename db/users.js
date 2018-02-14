@@ -1,8 +1,9 @@
 'use strict';
 
 const users = [
-  { id: '1', username: 'bob', password: 'secret', name: 'Bob Smith', orcid: 'testorcid1' },
-  { id: '2', username: 'joe', password: 'password', name: 'Joe Davis', orcid: 'testorcid2' },
+  { id: '1', username: 'o2r-admin', password: 'admin', name: 'Adi Admin', orcid: 'testorcid1' },
+  { id: '2', username: 'o2r-editor', password: 'editor', name: 'Edd Editor', orcid: 'testorcid2' },
+  { id: '2', username: 'o2r-author', password: 'author', name: 'Augusta Authora', orcid: 'testorcid3' },
 ];
 
 module.exports.findById = (id, done) => {

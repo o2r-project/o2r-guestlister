@@ -1,7 +1,7 @@
 'use strict';
 
 const clients = [
-  { id: '3', name: 'o2rtest', clientId: 'APP-8XINMK52KZVU', clientSecret: '2afa48e4-9473-446f-88bd', isTrusted: false }
+  { id: '3', name: 'o2rtest', clientId: 'APP-8XINMK52KZVU', clientSecret: '2afa48e4-9473-446f-88bd', isTrusted: true }
 ];
 
 
