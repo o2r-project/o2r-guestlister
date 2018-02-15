@@ -62,6 +62,13 @@ c.user.level.editor = 500;
 c.user.level.known = 100;
 c.user.level.userEdit = c.user.level.editor;
 
+// test users
+c.testUsers = [
+    { id: '1', username: 'o2r-admin', password: 'secretadmin3', name: 'Adi Admin', orcid: '0000-0002-1701-2564', level: 1000 },
+    { id: '2', username: 'o2r-editor', password: 'secreteditor2', name: 'Edd Editor', orcid: '0000-0001-5930-4867', level: 500 },
+    { id: '3', username: 'o2r-author', password: 'secretauthor1', name: 'Augusta Authora', orcid: '0000-0001-6225-344X', level: 500 },
+];
+
 // startup behavior
 c.createUserOnStartup = yn(env.CREATE_USERS_ON_STARTUP) || true;
 
