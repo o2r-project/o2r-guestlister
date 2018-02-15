@@ -46,59 +46,10 @@ function initApp(callback) {
     app.use(bodyParser.json({ extended: false }));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(errorHandler());
+    // todo check if guestlister has to use same session as bouncer
     app.use(session({ secret: config.sessionsecret, resave: false, saveUninitialized: false }));
     app.use(passport.initialize());
     app.use(passport.session());
-
-    //Create test users in database
-    //todo: wait for async to complete
-    if (config.createUserOnStartup) {
-        debug('Creating test users: %O', config.testUsers);
-
-        const db = mongojs('localhost/muncher', ['users', 'sessions']);
-
-        function saveUserAsync(user) {
-            return new Promise(function(resolve, reject) {
-                db.users.save(user, function (err, doc) {
-                    if (err) {
-                        return reject(err);
-                    }
-                    return resolve([doc]);
-                });
-            });        }
-
-        const authoruser = {
-            '_id': '58a2e0ea1d68491233b925e8',
-            'orcid': config.testUsers[0].orcid,
-            'lastseenAt': new Date(),
-            'level': config.testUsers[0].level,
-            'name': config.testUsers[0].name
-        };
-
-        const editoruser = {
-            '_id': '598438375a2a970bbd4bf4fe',
-            'orcid': config.testUsers[1].orcid,
-            'lastseenAt': new Date(),
-            'level': config.testUsers[1].level,
-            'name': config.testUsers[1].name
-        };
-
-        const adminuser = {
-            '_id': '5887181ebd95ff5ae8febb88',
-            'orcid': config.testUsers[2].orcid,
-            'lastseenAt': new Date(),
-            'level': config.testUsers[2].level,
-            'name': config.testUsers[2].name
-        };
-
-        Promise.all([saveUserAsync(authoruser), saveUserAsync(editoruser), saveUserAsync(adminuser)])
-            .then(function(allData) {
-                // All data available here in the order it was called.
-            });
-
-    } else {
-        debug('Starting guestlister without creating test users')
-    }
 
     // Routes
     app.get('/', routes.site.index);
@@ -109,17 +60,60 @@ function initApp(callback) {
     app.get('/oauth/authorize', routes.oauth2.authorization);
     app.post('/oauth/token', routes.oauth2.token);
 
-    try {
-        app.listen(config.net.port, () => {
-            debug('guestlister %s with API version %s waiting for requests on port %s',
-                config.version,
-                config.api_version,
-                config.net.port);
-        });
+    //Create test users in database
+    debug('Creating test users: %O', config.testUsers);
 
-    } catch (err) {
-        callback(err);
-    }
+    const db = mongojs('localhost/muncher', ['users', 'sessions']);
+
+    function saveUserAsync(user) {
+        return new Promise(function(resolve, reject) {
+            db.users.save(user, function (err, doc) {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve([doc]);
+            });
+        });        }
+
+    const authoruser = {
+        '_id': '58a2e0ea1d68491233b925e8',
+        'orcid': config.testUsers[0].orcid,
+        'lastseenAt': new Date(),
+        'level': config.testUsers[0].level,
+        'name': config.testUsers[0].name
+    };
+
+    const editoruser = {
+        '_id': '598438375a2a970bbd4bf4fe',
+        'orcid': config.testUsers[1].orcid,
+        'lastseenAt': new Date(),
+        'level': config.testUsers[1].level,
+        'name': config.testUsers[1].name
+    };
+
+    const adminuser = {
+        '_id': '5887181ebd95ff5ae8febb88',
+        'orcid': config.testUsers[2].orcid,
+        'lastseenAt': new Date(),
+        'level': config.testUsers[2].level,
+        'name': config.testUsers[2].name
+    };
+
+    Promise.all([saveUserAsync(authoruser), saveUserAsync(editoruser), saveUserAsync(adminuser)])
+        .then(function(allData) {
+            debug('Successfully added test users to the database %s', config.mongo.database);
+            try {
+                app.listen(config.net.port, () => {
+                    debug('guestlister %s with API version %s waiting for requests on port %s',
+                        config.version,
+                        config.api_version,
+                        config.net.port);
+                });
+
+            } catch (err) {
+                callback(err);
+            }
+        });
 
     callback(null);
 }
@@ -168,5 +162,3 @@ dbBackoff.on('fail', function () {
 });
 
 dbBackoff.backoff();
-
-//app.listen(process.env.PORT || 8383);
