@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const errorHandler = require('errorhandler');
 const session = require('express-session');
 const passport = require('passport');
-const routes = require('./routes');
+const routes = require('./lib/routes');
 const debug = require('debug')('guestlister');
 const config = require('./config/config');
 
@@ -21,7 +21,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport configuration
-require('./auth');
+require('./lib/auth');
 
 // Routes
 app.get('/', routes.site.index);
