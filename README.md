@@ -12,10 +12,9 @@ Requirements:
 
 ## Endpoints
 
-/login
-/logout
-/oauth/authorize
-/oauth/token
+* `/login` User login: Allows to chose between three different uses with basic, advanced and admin rights.
+* `/oauth/authorize` Starts an authorization request granting an authorization code
+* `/oauth/token` Exchange an authorization code for an access token
 
 ## Dockerfile
 
@@ -31,7 +30,9 @@ docker run --rm -it -e DEBUG=* guestlister
 *To ensure the guestlister allows offline login, these values have to match the  the [o2r-bouncer](https://github.com/o2r-project/o2r-bouncer#available-environment-variables) configuration, i.e. the client ID, client secret, mongodb configuration and the oauth URLs have to match*
 
 * `GUESTLISTER_PORT`
-  Define on which Port muncher should listen. Defaults to `8383`.
+  Define on which port guestlister should listen. Defaults to `8383`.
+* `BOUNCER_PORT`
+  Specifies on which port the bouncer is listening. Defaults to `8383`.
 * `GUESTLISTER_MONGODB` __Required__
   Location for the mongo db. Defaults to `mongodb://localhost/`. You will very likely need to change this.
 * `GUESTLISTER_MONGODB_DATABASE`
@@ -78,7 +79,7 @@ You can then start the offline login process by opening `http://localhost:8383/a
 
 ## License
 
-o2r guestlister is licensed under Apache License, Version 2.0, see file LICENSE.
+*o2r guestlister* is licensed under Apache License, Version 2.0, see file LICENSE.
 
 Copyright (C) 2018 - o2r project.
 
