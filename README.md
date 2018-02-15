@@ -13,8 +13,18 @@ Requirements:
 ## Endpoints
 
 * `/login` User login: Allows to chose between three different uses with basic, advanced and admin rights.
-* `/oauth/authorize` Starts an authorization request granting an authorization code
-* `/oauth/token` Exchange an authorization code for an access token
+* `/oauth/authorize` Starts an authorization request granting an authorization code.
+* `/oauth/token` Exchange an authorization code for an access token.
+
+## Demo data
+
+The service creates three test users when starting the service:
+ 
+* A basic user with level `100`,
+* an editor with level `500`,
+* and an admin with level `1000`.
+
+This allows trying out the o2r reference-implementation without going through the [ORCID](https://orcid.org/) app registration.
 
 ## Dockerfile
 
@@ -27,18 +37,16 @@ docker run --rm -it -e DEBUG=* guestlister
 
 ## Environment variables
 
-*To ensure the guestlister allows offline login, these values have to match the  the [o2r-bouncer](https://github.com/o2r-project/o2r-bouncer#available-environment-variables) configuration, i.e. the client ID, client secret, mongodb configuration and the oauth URLs have to match*
+*To ensure the guestlister allows offline login, these values have to match the  the [o2r-bouncer](https://github.com/o2r-project/o2r-bouncer#available-environment-variables) configuration, i.e. the client ID, client secret, mongodb configuration and the oauth URLs have to be the same.*
 
 * `GUESTLISTER_PORT`
   Define on which port guestlister should listen. Defaults to `8383`.
 * `BOUNCER_PORT`
-  Specifies on which port the bouncer is listening. Defaults to `8383`.
+  Specifies on which port the bouncer is listening. Defaults to `8083`.
 * `GUESTLISTER_MONGODB` __Required__
   Location for the mongo db. Defaults to `mongodb://localhost/`. You will very likely need to change this.
 * `GUESTLISTER_MONGODB_DATABASE`
   Which database inside the mongo db should be used. Defaults to `muncher`.
-* `CREATE_USERS_ON_STARTUP`
-  Create three testusers when starting the service: A basic user with level `100`, an editor with level `500` and an admin with level `1000`. Defaults to `true`
 * `OAUTH_URL_AUTHORIZATION`
   Authorization URL used for the OAuth2 server. Defaults to `/oauth/authorize`.
 * `OAUTH_URL_TOKEN`

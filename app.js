@@ -78,7 +78,6 @@ function initApp(callback) {
 
     //Create test users in database
     debug('Creating test users: %O', config.testUsers);
-    // todo clear sessions/users on start?
 
     const db = mongojs('localhost/' + config.mongo.database, ['users', 'sessions']);
 
