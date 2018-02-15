@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const routes = require('./routes');
 const debug = require('debug')('guestlister');
+const config = require('./config/config');
 
 // Express configuration
 const app = express();
@@ -28,7 +29,7 @@ app.get('/login', routes.site.loginForm);
 app.post('/login', routes.site.login);
 app.get('/logout', routes.site.logout);
 
-app.get('/dialog/authorize', routes.oauth2.authorization);
+app.get('/oauth/authorize', routes.oauth2.authorization);
 app.post('/oauth/token', routes.oauth2.token);
 
 app.listen(process.env.PORT || 8383);
