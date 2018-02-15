@@ -22,16 +22,13 @@ app.use(passport.session());
 // Passport configuration
 require('./auth');
 
+// Routes
 app.get('/', routes.site.index);
 app.get('/login', routes.site.loginForm);
 app.post('/login', routes.site.login);
 app.get('/logout', routes.site.logout);
 
 app.get('/dialog/authorize', routes.oauth2.authorization);
-app.post('/dialog/authorize/decision', routes.oauth2.decision);
 app.post('/oauth/token', routes.oauth2.token);
-
-app.get('/api/userinfo', routes.user.info);
-app.get('/api/clientinfo', routes.client.info);
 
 app.listen(process.env.PORT || 8383);
