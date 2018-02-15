@@ -10,7 +10,28 @@ const config = require('./config/config');
 
 const app = express();
 const mongojs = require('mongojs');
+const mongoose = require('mongoose');
 const backoff = require('backoff');
+const MongoStore = require('connect-mongodb-session')(session);
+
+// use ES6 promises for mongoose
+mongoose.Promise = global.Promise;
+
+const dbURI = config.mongo.location + config.mongo.database;
+mongoose.connect(dbURI, {
+    promiseLibrary: global.Promise // use ES6 promises for underlying MongoDB DRIVE
+});
+mongoose.connection.on('error', (err) => {
+    debug('Could not connect to MongoDB @ %s: %s', dbURI, err);
+});
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function () {
+    mongoose.connection.close(function () {
+        debug('Mongoose default connection disconnected through app termination signal (SIGINT)');
+        process.exit(0);
+    });
+});
+
 
 // Passport configuration
 require('./lib/auth');
@@ -90,11 +111,10 @@ function initApp(callback) {
 
     try {
         app.listen(config.net.port, () => {
-            debug('bouncer %s with API version %s waiting for requests on port %s',
+            debug('guestlister %s with API version %s waiting for requests on port %s',
                 config.version,
                 config.api_version,
                 config.net.port);
-            debug('new users get the level %s', config.user.level.default);
         });
 
     } catch (err) {
@@ -118,7 +138,6 @@ dbBackoff.on('backoff', function (number, delay) {
 dbBackoff.on('ready', function (number, delay) {
     debug('Connect to MongoDB (#%s) ...', number);
     mongoose.connect(dbURI, {
-        useMongoClient: true,
         promiseLibrary: global.Promise
     }, (err) => {
         if (err) {

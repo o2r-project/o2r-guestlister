@@ -78,7 +78,7 @@ You can then start the offline login process by opening `http://localhost:8383/a
 
 ## License
 
-o2r bouncer is licensed under Apache License, Version 2.0, see file LICENSE.
+o2r guestlister is licensed under Apache License, Version 2.0, see file LICENSE.
 
 Copyright (C) 2018 - o2r project.
 

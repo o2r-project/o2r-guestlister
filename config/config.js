@@ -28,7 +28,7 @@ c.api_version = 1;
 c.version = require('../package.json').version;
 
 // network & database
-c.net.port         = env.GUESTLISTER_PORT || 8083;
+c.net.port         = env.GUESTLISTER_PORT || 8383;
 c.net.host         = 'http://localhost:';
 c.mongo.location   = env.GUESTLISTER_MONGODB || 'mongodb://localhost/';
 c.mongo.database   = env.GUESTLISTER_MONGODB_DATABASE || 'muncher';
@@ -55,7 +55,7 @@ c.oauth.default = {
 c.sessionsecret = env.SESSION_SECRET || 'o2r';
 
 // user levels
-c.users = {};
+c.user = {};
 c.user.level = {};
 c.user.level.admin = 1000;
 c.user.level.editor = 500;
