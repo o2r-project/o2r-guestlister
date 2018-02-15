@@ -29,6 +29,7 @@ c.version = require('../package.json').version;
 
 // network & database
 c.net.port         = env.GUESTLISTER_PORT || 8383;
+c.net.bouncer_port = env.BOUNCER_PORT || 8083;
 c.net.host         = 'http://localhost:';
 c.mongo.location   = env.GUESTLISTER_MONGODB || 'mongodb://localhost/';
 c.mongo.database   = env.GUESTLISTER_MONGODB_DATABASE || 'muncher';
@@ -41,11 +42,15 @@ if (c.mongo.location[c.mongo.location.length-1] !== '/') {
     c.mongo.location += '/';
 }
 
+// oauth configuration
+c.oauth.authorizationPath = '/oauth/authorize';
+c.oauth.tokenPath = '/oauth/token';
+
 // oauth providers
 c.oauth.default = {
-    authorizationURL: env.OAUTH_URL_AUTHORIZATION || c.net.host + c.net.port + '/api/v1/oauth/authorize',
-    tokenURL: env.OAUTH_URL_TOKEN || c.net.host + c.net.port + '/api/v1/oauth/token',
-    callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.port + '/api/v1/auth/login',
+    authorizationURL: env.OAUTH_URL_AUTHORIZATION || c.net.host + c.net.port + c.oauth.authorizationPath,
+    tokenURL: env.OAUTH_URL_TOKEN || c.net.host + c.net.port + c.oauth.tokenPath,
+    callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.bouncer_port + '/login',
     clientID: env.OAUTH_CLIENT_ID,
     clientSecret: env.OAUTH_CLIENT_SECRET,
     scope: env.OAUTH_SCOPE || '/authenticate'
@@ -66,7 +71,7 @@ c.user.level.userEdit = c.user.level.editor;
 c.testUsers = [
     { id: '1', username: 'o2r-admin', password: 'secretadmin3', name: 'Adi Admin', orcid: '0000-0002-1701-2564', level: 1000 },
     { id: '2', username: 'o2r-editor', password: 'secreteditor2', name: 'Edd Editor', orcid: '0000-0001-5930-4867', level: 500 },
-    { id: '3', username: 'o2r-author', password: 'secretauthor1', name: 'Augusta Authora', orcid: '0000-0001-6225-344X', level: 500 },
+    { id: '3', username: 'o2r-author', password: 'secretauthor1', name: 'Augusta Authora', orcid: '0000-0001-6225-344X', level: 100 },
 ];
 
 // startup behavior
