@@ -1,9 +1,8 @@
 # o2r-guestlister
 
-A Node.js OAuth2 server implementation to allow offline login with o2r-bouncer as part of the [o2r reference-implementation](https://github.com/o2r-project/reference-implementation).
+A Node.js OAuth2 server implementation to allow offline login with o2r-bouncer as part of the [o2r reference-implementation](https://github.com/o2r-project/reference-implementation). For more inforamtion about OAuth2 see the OAUth2 [documentation](https://oauth.net/2/).
 
 Based on the repository https://github.com/gerges-beshay/oauth2orize-examples and the underlying OAuth2 server implementation [oauth2orize](https://www.npmjs.com/package/oauth2orize).
-
 
 Requirements:
 
@@ -12,9 +11,13 @@ Requirements:
 
 ## Endpoints
 
-* `/login` User login: Allows to chose between three different uses with basic, advanced and admin rights.
+The Oauth2 server implementation allows trying out the o2r reference-implementation without going through the [ORCID](https://orcid.org/) app registration. It implements the following endpoints:
+
 * `/oauth/authorize` Starts an authorization request granting an authorization code.
+* `/login` User login: Allows to chose between three different uses with basic, advanced and admin rights.
 * `/oauth/token` Exchange an authorization code for an access token.
+
+To mimic the ORCID OAuth2 implementation the demo server submits the `username` and `ORCID` ID as custom parameters in the response to the access token request.
 
 ## Demo data
 
@@ -24,7 +27,7 @@ The service creates three test users when starting the service:
 * an editor with level `500`,
 * and an admin with level `1000`.
 
-This allows trying out the o2r reference-implementation without going through the [ORCID](https://orcid.org/) app registration.
+The demo data makes exploration of the o2r platform with different user roles possible. It can be configured by editing the `testUsers` object in `config/config.js`.
 
 ## Dockerfile
 
@@ -91,3 +94,4 @@ You can then start the offline login process by opening `http://localhost:8383/a
 
 Copyright (C) 2018 - o2r project.
 
+The code form [*oauth2orize-examples*](https://github.com/gerges-beshay/oauth2orize-examples) is licensed under MIT license; see the copyright notice contained in the files under the `lib` directory for more information.
