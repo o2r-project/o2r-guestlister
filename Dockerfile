@@ -31,7 +31,6 @@ RUN rm -rf /var/cache
 COPY config config
 COPY lib lib
 COPY css css
-COPY views views
 COPY app.js app.js
 
 # Metadata params provided with docker build command
