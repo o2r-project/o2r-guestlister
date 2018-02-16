@@ -68,11 +68,37 @@ c.user.level.known = 100;
 c.user.level.userEdit = c.user.level.editor;
 
 // test users
-c.testUsers = [
-    { id: '1', username: 'o2r-admin', password: 'secretadmin3', name: 'Adi Admin', orcid: '0000-0002-1701-2564', level: 1000 },
-    { id: '2', username: 'o2r-editor', password: 'secreteditor2', name: 'Edd Editor', orcid: '0000-0001-5930-4867', level: 500 },
-    { id: '3', username: 'o2r-author', password: 'secretauthor1', name: 'Augusta Authora', orcid: '0000-0001-6225-344X', level: 100 },
-];
+c.testUsers = {};
+
+c.testUsers.adminUser = {
+    id: '1',
+    username: 'o2r-admin',
+    password: 'secretadmin3',
+    name: 'Adi Admin',
+    orcid: '0000-0002-1701-2564',
+    level: c.user.level.admin,
+    lastseenAt: new Date()
+};
+
+c.testUsers.editorUser = {
+    id: '2',
+    username: 'o2r-editor',
+    password: 'secreteditor2',
+    name: 'Edd Editor',
+    orcid: '0000-0001-5930-4867',
+    level: c.user.level.editor,
+    lastseenAt: new Date()
+};
+
+c.testUsers.authorUser = {
+    id: '3',
+    username: 'o2r-author',
+    password: 'secretauthor1',
+    name: 'Augusta Authora',
+    orcid: '0000-0001-6225-344X',
+    level: c.user.level.known,
+    lastseenAt: new Date()
+};
 
 // startup behavior
 c.createUserOnStartup = yn(env.CREATE_USERS_ON_STARTUP) || true;
