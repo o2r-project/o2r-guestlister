@@ -1,4 +1,4 @@
-# (C) Copyright 2018 The o2r project. https://o2r.info
+# (C) Copyright 2018 o2r project. https://o2r.info
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,28 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM alpine:3.6
-
-# Add Alpine mirrors, replacing default repositories with edge ones, based on https://github.com/jfloff/alpine-python/blob/master/3.4/Dockerfile
-RUN echo \
-  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" > /etc/apk/repositories \
-  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+FROM node:8-alpine
 
 RUN apk add --no-cache \
-    nodejs \
     dumb-init \
-    nodejs-npm \
   && rm -rf /var/cache
 
+# App installation
 WORKDIR /guestlister
+COPY package.json package.json
+
+RUN npm install --production
+
+# Clean up
+RUN rm -rf /var/cache
+
+# Copy files after npm install to utilize build caching
 COPY config config
 COPY lib lib
 COPY css css
 COPY views views
 COPY app.js app.js
-COPY package.json package.json
-RUN npm install --production
 
 # Metadata params provided with docker build command
 ARG VERSION=dev
