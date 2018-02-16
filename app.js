@@ -55,6 +55,19 @@ require('./lib/auth');
 function initApp(callback) {
     debug('Initialize application');
 
+    const mongoStore = new MongoStore({
+        uri: config.mongo.location + config.mongo.database,
+        collection: 'guestlist'
+    }, err => {
+        if (err) {
+            debug('Error starting MongoStore: %s'.red, err);
+        }
+    });
+
+    mongoStore.on('error', err => {
+        debug('Error with MongoStore: %s'.red, err);
+    });
+
     // Express configuration
     app.set('view engine', 'ejs');
     app.use(express.static(__dirname + '/css'));
@@ -62,8 +75,7 @@ function initApp(callback) {
     app.use(bodyParser.json({ extended: false }));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(errorHandler());
-    // todo check if guestlister has to use same session as bouncer
-    app.use(session({ secret: config.sessionsecret, resave: false, saveUninitialized: false }));
+    app.use(session({ secret: config.sessionsecret, resave: false, saveUninitialized: false, store: mongoStore }));
     app.use(passport.initialize());
     app.use(passport.session());
 
@@ -71,7 +83,6 @@ function initApp(callback) {
     app.get('/', routes.site.index);
     app.get('/login', routes.site.loginForm);
     app.post('/login', routes.site.login);
-    app.get('/logout', routes.site.logout);
 
     app.get(config.oauth.authorizationPath, routes.oauth2.authorization);
     app.post(config.oauth.tokenPath, routes.oauth2.token);
@@ -79,7 +90,7 @@ function initApp(callback) {
     //Create test users in database
     debug('Creating test users: %O', config.testUsers);
 
-    const db = mongojs('localhost/' + config.mongo.database, ['users', 'sessions']);
+    const db = mongojs('localhost/' + config.mongo.database, ['users']);
 
     function saveUserAsync(user) {
         return new Promise(function(resolve, reject) {
@@ -91,31 +102,13 @@ function initApp(callback) {
             });
         });        }
 
-    const authoruser = {
-        '_id': '58a2e0ea1d68491233b925e8',
-        'orcid': config.testUsers[0].orcid,
-        'lastseenAt': new Date(),
-        'level': config.testUsers[0].level,
-        'name': config.testUsers[0].name
-    };
+    let promises = [
+        saveUserAsync(config.testUsers.authorUser),
+        saveUserAsync(config.testUsers.editorUser),
+        saveUserAsync(config.testUsers.adminUser)
+    ];
 
-    const editoruser = {
-        '_id': '598438375a2a970bbd4bf4fe',
-        'orcid': config.testUsers[1].orcid,
-        'lastseenAt': new Date(),
-        'level': config.testUsers[1].level,
-        'name': config.testUsers[1].name
-    };
-
-    const adminuser = {
-        '_id': '5887181ebd95ff5ae8febb88',
-        'orcid': config.testUsers[2].orcid,
-        'lastseenAt': new Date(),
-        'level': config.testUsers[2].level,
-        'name': config.testUsers[2].name
-    };
-
-    Promise.all([saveUserAsync(authoruser), saveUserAsync(editoruser), saveUserAsync(adminuser)])
+    Promise.all(promises)
         .then(function(allData) {
             debug('Successfully added test users to the database %s', config.mongo.database);
             try {

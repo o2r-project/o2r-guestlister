@@ -57,7 +57,7 @@ c.oauth.default = {
 };
 
 // session secret
-c.sessionsecret = env.SESSION_SECRET || 'o2r';
+c.sessionsecret = env.SESSION_SECRET || 'guestlisterSecret';
 
 // user levels
 c.user = {};
@@ -67,7 +67,15 @@ c.user.level.editor = 500;
 c.user.level.known = 100;
 c.user.level.userEdit = c.user.level.editor;
 
-// test users
+// test data
+c.testClient =   {
+    id: '3',
+    name: 'o2rtest',
+    clientId: c.oauth.default.clientID,
+    clientSecret: c.oauth.default.clientSecret,
+    isTrusted: true
+};
+
 c.testUsers = {};
 
 c.testUsers.adminUser = {
@@ -99,8 +107,5 @@ c.testUsers.authorUser = {
     level: c.user.level.known,
     lastseenAt: new Date()
 };
-
-// startup behavior
-c.createUserOnStartup = yn(env.CREATE_USERS_ON_STARTUP) || true;
 
 module.exports = c;
