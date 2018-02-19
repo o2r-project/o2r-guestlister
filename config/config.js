@@ -45,6 +45,7 @@ if (c.mongo.location[c.mongo.location.length-1] !== '/') {
 // oauth configuration
 c.oauth.authorizationPath = '/oauth/authorize';
 c.oauth.tokenPath = '/oauth/token';
+c.oauth.publicScope = '/read-public';
 
 // oauth providers
 c.oauth.default = {
