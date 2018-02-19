@@ -14,7 +14,7 @@ Requirements:
 The Oauth2 server implementation allows trying out the o2r reference-implementation without going through the [ORCID](https://orcid.org/) app registration. It implements the following endpoints:
 
 * `/oauth/authorize` Starts an authorization request granting an authorization code.
-* `/login` User login: Allows to chose between three different uses with basic, advanced and admin rights.
+* `/oauth/login` User login: Allows to chose between three different uses with basic, advanced and admin rights.
 * `/oauth/token` Exchange an authorization code for an access token.
 
 To mimic the ORCID OAuth2 implementation the demo server submits the `username` and `ORCID` ID as custom parameters in the response to the access token request.

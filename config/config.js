@@ -47,12 +47,13 @@ if (c.mongo.location[c.mongo.location.length-1] !== '/') {
 c.oauth.authorizationPath = env.OAUTH_URL_AUTHORIZATION ? url.parse(env.OAUTH_URL_AUTHORIZATION).pathname : '/oauth/authorize';
 c.oauth.tokenPath = env.OAUTH_URL_TOKEN ? url.parse(env.OAUTH_URL_TOKEN).pathname : '/oauth/token';
 c.oauth.publicScope = '/read-public';
+c.oauth.loginPath = '/oauth/login';
 
 // oauth providers
 c.oauth.default = {
     authorizationURL: env.OAUTH_URL_AUTHORIZATION || c.net.host + c.net.port + c.oauth.authorizationPath,
     tokenURL: env.OAUTH_URL_TOKEN || c.net.host + c.net.port + c.oauth.tokenPath,
-    callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.bouncer_port + '/login',
+    callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.bouncer_port + c.oauth.loginPath,
     clientID: env.OAUTH_CLIENT_ID,
     clientSecret: env.OAUTH_CLIENT_SECRET,
     scope: env.OAUTH_SCOPE || '/authenticate'

@@ -24,6 +24,7 @@ const passport = require('passport');
 const routes = require('./lib/routes');
 const debug = require('debug')('guestlister');
 const config = require('./config/config');
+const path = require('path');
 
 const app = express();
 const mongojs = require('mongojs');
@@ -70,7 +71,7 @@ function initApp(callback) {
 
     // Express configuration
     app.set('view engine', 'ejs');
-    app.use(express.static(__dirname + '/css'));
+    app.use('/oauth/css', express.static(path.join(__dirname, 'css')));
     app.use(cookieParser());
     app.use(bodyParser.json({ extended: false }));
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -81,8 +82,8 @@ function initApp(callback) {
 
     // Routes
     app.get('/', routes.site.index);
-    app.get('/login', routes.site.loginForm);
-    app.post('/login', routes.site.login);
+    app.get(config.oauth.loginPath, routes.site.loginForm);
+    app.post(config.oauth.loginPath, routes.site.login);
 
     app.get(config.oauth.authorizationPath, routes.oauth2.authorization);
     app.post(config.oauth.tokenPath, routes.oauth2.token);
