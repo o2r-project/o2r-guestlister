@@ -90,7 +90,10 @@ function initApp(callback) {
     //Create test users in database
     debug('Creating test users: %O', config.testUsers);
 
-    const db = mongojs('localhost/' + config.mongo.database, ['users']);
+    let mongoStringSplit = config.mongo.location.split('mongodb://');
+    let host = mongoStringSplit[mongoStringSplit.length - 1];
+    debug('Connecting to host %s to write test users into database.', host);
+    const db = mongojs(host + config.mongo.database, ['users']);
 
     function saveUserAsync(user) {
         return new Promise(function(resolve, reject) {
