@@ -15,6 +15,7 @@
  *
  */
 const yn = require('yn');
+const url = require('url');
 
 var c = {};
 c.version = {};
@@ -43,8 +44,8 @@ if (c.mongo.location[c.mongo.location.length-1] !== '/') {
 }
 
 // oauth configuration
-c.oauth.authorizationPath = '/oauth/authorize';
-c.oauth.tokenPath = '/oauth/token';
+c.oauth.authorizationPath = env.OAUTH_URL_AUTHORIZATION ? url.parse(env.OAUTH_URL_AUTHORIZATION).pathname : '/oauth/authorize';
+c.oauth.tokenPath = env.OAUTH_URL_TOKEN ? url.parse(env.OAUTH_URL_TOKEN).pathname : '/oauth/token';
 c.oauth.publicScope = '/read-public';
 
 // oauth providers
