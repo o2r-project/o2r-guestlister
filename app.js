@@ -71,8 +71,9 @@ function initApp(callback) {
 
     // Express configuration
     app.set('view engine', 'ejs');
+    app.set('views', path.join(__dirname, 'views'));
+    debug('Setting views directory to %s', path.join(__dirname, 'views'));
     app.use('/oauth/css', express.static(path.join(__dirname, 'css')));
-    app.use('/oauth/login', express.static(path.join(__dirname, 'views')));
     app.use(cookieParser());
     app.use(bodyParser.json({ extended: false }));
     app.use(bodyParser.urlencoded({ extended: false }));
