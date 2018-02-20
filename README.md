@@ -61,6 +61,12 @@ docker run --rm -it -e DEBUG=* guestlister
 * `OAUTH_CLIENT_SECRET` __Required__
   The client secret for your instance.
   
+## Sessions
+
+Guestlister uses [express-session](https://github.com/expressjs/session) for the session management with [connect-ensure-login](https://github.com/jaredhanson/connect-ensure-login). It stores its own sessions in a collection named `guestlist`.
+
+For simplicity, both the bouncer data and guestlister sessions are stored in the same database.
+  
 ## Development
 
 Settings have to be provided as environment variables, either at start time or via the debug configuration of your IDE.
