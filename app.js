@@ -32,13 +32,16 @@ const mongoose = require('mongoose');
 const backoff = require('backoff');
 const MongoStore = require('connect-mongodb-session')(session);
 
-// use ES6 promises for mongoose
-mongoose.Promise = global.Promise;
-
+// mongo connection
 const dbURI = config.mongo.location + config.mongo.database;
-mongoose.connect(dbURI, {
-    promiseLibrary: global.Promise // use ES6 promises for underlying MongoDB DRIVE
-});
+// see http://blog.mlab.com/2014/04/mongodb-driver-mongoose/#Production-ready_connection_settings and http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html and http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
+let dbOptions = {
+    autoReconnect: true,
+    reconnectTries: Number.MAX_VALUE,
+    keepAlive: 30000,
+    socketTimeoutMS: 30000,
+    promiseLibrary: mongoose.Promise // use ES6 promises for mongoose
+};
 mongoose.connection.on('error', (err) => {
     debug('Could not connect to MongoDB @ %s: %s', dbURI, err);
 });
@@ -146,11 +149,9 @@ dbBackoff.on('backoff', function (number, delay) {
 });
 dbBackoff.on('ready', function (number, delay) {
     debug('Connect to MongoDB (#%s) ...', number);
-    mongoose.connect(dbURI, {
-        promiseLibrary: global.Promise
-    }, (err) => {
+    mongoose.connect(dbURI, dbOptions, (err) => {
         if (err) {
-            debug('Error during connect: %s', err);
+            debug('Error during connect: %o', err);
             mongoose.disconnect(() => {
                 debug('Mongoose: Disconnected all connections.');
             });

@@ -27,6 +27,8 @@ The service creates three test users when starting the service:
 * an editor with level `500`,
 * and an admin with level `1000`.
 
+The levels are explained in the [o2r-web-api entry on user levels](http://o2r.info/o2r-web-api/user/#user-levels).
+
 The demo data makes exploration of the o2r platform with different user roles possible. It can be configured by editing the `testUsers` object in `config/config.js`.
 
 ## Dockerfile
