@@ -1,0 +1,245 @@
+/*http://drbl.in/nYHu*/
+
+/*
+Author : Himateja
+Editor : Codepen
+Permissions : Open Source
+*/
+
+*,
+*:after,
+*:before
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgb(243, 243, 243);
+    color: rgba(0,0,0,0.6);
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+body header {
+    position: relative;
+    width: 100%;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+    background: rgb(0, 66, 134);
+    text-align: center;
+}
+
+body header img {
+    margin: 15px 0;
+    height: 50px;
+}
+
+.login {
+    position: relative;
+    padding: 10px;
+    margin: 40px auto 40px auto;
+    width: 480px;
+    min-height: 420px;
+    border-radius: 3px;
+    background: white;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.26);
+    overflow: hidden;
+}
+
+.login .photo {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 15px 180px;
+    border-radius: 50%;
+    background: rgb(223, 223, 223);
+    border: 13px solid rgb(223, 223, 223);
+    overflow: hidden !important;
+    transform: rotate(-2deg);
+}
+
+.login .photo:before {
+    position: absolute;
+    content: '';
+    width: 35px;
+    height: 35px;
+    top: 0px;
+    right: 20px;
+    border-radius: 50%;
+    background: #aaa;
+    border: 2px solid #fff;
+    transform: scale(0);
+    transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -webkit-animation: user-head 0.5s 0s forwards;
+    -moz-animation: user-head 0.5s 0s forwards;
+    animation: user-head 0.5s 0s forwards;
+}
+
+.login .photo:after {
+    position: absolute;
+    content: '';
+    width: 140px;
+    height: 220px;
+    top: 40px;
+    right: -32px;
+    border-radius: 50%;
+    background: #aaa;
+    border: 2px solid #fff;
+    transform: translateY(36px);
+    transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    -webkit-animation: user-body 0.5s 0.3s forwards;
+    -moz-animation: user-body 0.5s 0.3s forwards;
+    animation: user-body 0.5s 0.3s forwards;
+}
+
+.login > span {
+    display: block;
+    text-align: center;
+}
+
+#login-form {
+    margin: 10px;
+}
+
+form {
+    width: 100%;
+    margin: 30px 0;
+}
+
+form > span  {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    font-size: 18px;
+    border: 0;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    background: rgb(0, 66, 134);
+    color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.37);
+}
+
+button[type="submit"]:focus {
+    outline: none;
+}
+
+button[type="submit"]:hover {
+    background: rgb(0, 134, 67);
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    margin-left: -10px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    border-top: 1px solid rgba(117, 117, 117, 0.15);
+}
+
+footer a {
+    display: block;
+    text-decoration: none;
+    font-size: 12px;
+    color: inherit;
+}
+
+footer a:hover {
+    color: rgba(0,0,0,0.9);
+    text-decoration: underline;
+}
+
+footer a:focus {
+    outline: none;
+}
+
+.copyright {
+    position: fixed;
+    width: 100%;
+    bottom: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 66, 134);
+}
+
+a:hover {
+    transition: none;
+    border-bottom: 1px solid rgb(0, 66, 134);
+}
+
+/* -- highlighter animation --------------------------- */
+@-webkit-keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to { width:0; background:transparent; }
+}
+
+@-webkit-keyframes user-head {
+    100% {
+        -webkit-transform:scale(1);
+        transform:scale(1);
+        -moz-transform:scale(1);
+    } }
+@-moz-keyframes user-head {
+    100% {
+        -webkit-transform:scale(1);
+        transform:scale(1);
+        -moz-transform:scale(1);
+    } }
+@keyframes user-head {
+    100% {
+        -webkit-transform:scale(1);
+        transform:scale(1);
+        -moz-transform:scale(1);
+    } }
+
+@-webkit-keyframes user-body {
+    100% {
+        -webkit-transform:translateY(2px);
+        transform:translateY(2px);
+        -moz-transform:translateY(2px);
+    } }
+@-moz-keyframes user-body {
+    100% {
+        -webkit-transform:translateY(2px);
+        transform:translateY(2px);
+        -moz-transform:translateY(2px);
+    } }
+@keyframes user-body {
+    100% {
+        -webkit-transform:translateY(2px);
+        transform:translateY(2px);
+        -moz-transform:translateY(2px);
+    } }

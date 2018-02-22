@@ -1,0 +1,30 @@
+<!-- Based on designs by Jason Zigrino (https://dribbble.com/JasonZigrino) and Himateja (https://codepen.io/Himateja) -->
+<head>
+	<link href="/oauth/css/login.css" rel="stylesheet" type="text/css">
+</head>
+
+<header>
+    <img src="https://cdn.rawgit.com/o2r-project/o2r-platform/master/client/img/o2r-logo-only-white.svg" />
+</header>
+<div class="login">
+    <div class="photo">
+    </div>
+    <span>Sign in to a test account using OAuth2</span>
+
+    <div id="login-form">
+        <% Object.keys(data.testUsers).forEach(function(key){ %>
+        <form action="<%= data.oauth.loginPath %>" method="post">
+            <input name="username" type="hidden" value="<%= data.testUsers[key].username %>" />
+            <input name="password" type="hidden" value="<%= data.testUsers[key].password %>" />
+            <button id="regular" type="submit" ripple><%= data.testUsers[key].role %></button>
+            <span>Level<sup><a href="http://o2r.info/o2r-web-api/user/#user-levels">?</a></sup>: <code><%= data.testUsers[key].level %></code> | <a href="https://orcid.org"><img alt="ORCID logo" src="https://orcid.org/sites/default/files/images/orcid_16x16.png" width="16" height="16" hspace="4" /></a> <a href="https://sandbox.orcid.org/<%= data.testUsers[key].orcid %>">https://sandbox.orcid.org/<%= data.testUsers[key].orcid %></a></span>
+        </form>
+        <% }); %>
+    </div>
+
+    <footer><a href="http://o2r.info">About o2r</a></footer>
+</div>
+
+<p class="copyright">
+    <span><a href="https://github.com/o2r-project/o2r-guestlister">o2r-guestlister</a> version <code>0.0.1</span>
+</p>
