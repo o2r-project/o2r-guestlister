@@ -1,5 +1,7 @@
 # o2r-guestlister
 
+[![](https://images.microbadger.com/badges/image/o2rproject/o2r-guestlister.svg)](https://microbadger.com/images/o2rproject/o2r-guestlister "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/o2rproject/o2r-guestlister.svg)](https://microbadger.com/images/o2rproject/o2r-guestlister "Get your own version badge on microbadger.com")
+
 A Node.js OAuth2 server implementation to allow offline login with o2r-bouncer as part of the [o2r reference-implementation](https://github.com/o2r-project/reference-implementation). For more inforamtion about OAuth2 see the OAUth2 [documentation](https://oauth.net/2/).
 
 Based on the repository https://github.com/gerges-beshay/oauth2orize-examples and the underlying OAuth2 server implementation [oauth2orize](https://www.npmjs.com/package/oauth2orize).
