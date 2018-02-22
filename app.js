@@ -105,17 +105,18 @@ function initApp(callback) {
         return new Promise(function(resolve, reject) {
             db.users.save(user, function (err, doc) {
                 if (err) {
+                    debug('Error saving user: %o', err);
                     return reject(err);
                 }
                 return resolve([doc]);
             });
         });        }
 
-    let promises = [
-        saveUserAsync(config.testUsers.authorUser),
-        saveUserAsync(config.testUsers.editorUser),
-        saveUserAsync(config.testUsers.adminUser)
-    ];
+    let promises = [];
+
+    Object.keys(config.testUsers).forEach(function(key){
+        promises.push(saveUserAsync(config.testUsers[key]))
+    });
 
     Promise.all(promises)
         .then(function(allData) {
@@ -129,6 +130,7 @@ function initApp(callback) {
                 });
 
             } catch (err) {
+                debug('Error during user creation: %o', err);
                 callback(err);
             }
         });

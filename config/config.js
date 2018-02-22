@@ -53,7 +53,7 @@ c.oauth.loginPath = '/oauth/login';
 c.oauth.default = {
     authorizationURL: env.OAUTH_URL_AUTHORIZATION || c.net.host + c.net.port + c.oauth.authorizationPath,
     tokenURL: env.OAUTH_URL_TOKEN || c.net.host + c.net.port + c.oauth.tokenPath,
-    callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.bouncer_port + c.oauth.loginPath,
+    callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.bouncer_port + '/login',
     clientID: env.OAUTH_CLIENT_ID,
     clientSecret: env.OAUTH_CLIENT_SECRET,
     scope: env.OAUTH_SCOPE || '/authenticate'
@@ -83,6 +83,7 @@ c.testUsers = {};
 
 c.testUsers.adminUser = {
     id: '1',
+    role: 'Admin',
     username: 'o2r-admin',
     password: 'secretadmin3',
     name: 'Adi Admin',
@@ -93,6 +94,7 @@ c.testUsers.adminUser = {
 
 c.testUsers.editorUser = {
     id: '2',
+    role: 'Editor',
     username: 'o2r-editor',
     password: 'secreteditor2',
     name: 'Edd Editor',
@@ -103,6 +105,7 @@ c.testUsers.editorUser = {
 
 c.testUsers.authorUser = {
     id: '3',
+    role: 'User',
     username: 'o2r-author',
     password: 'secretauthor1',
     name: 'Augusta Authora',
