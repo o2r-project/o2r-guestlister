@@ -54,8 +54,8 @@ c.oauth.default = {
     authorizationURL: env.OAUTH_URL_AUTHORIZATION || c.net.host + c.net.port + c.oauth.authorizationPath,
     tokenURL: env.OAUTH_URL_TOKEN || c.net.host + c.net.port + c.oauth.tokenPath,
     callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.bouncer_port + '/login',
-    clientID: env.OAUTH_CLIENT_ID,
-    clientSecret: env.OAUTH_CLIENT_SECRET,
+    clientID: env.OAUTH_CLIENT_ID || "testClient",
+    clientSecret: env.OAUTH_CLIENT_SECRET || "testSecret",
     scope: env.OAUTH_SCOPE || '/authenticate'
 };
 

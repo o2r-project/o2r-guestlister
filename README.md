@@ -65,9 +65,9 @@ docker run --rm -it -e DEBUG=* guestlister
 * `OAUTH_SCOPE`
   Scope for the ORCID API. Defaults to `/authenticate`.
 * `OAUTH_CLIENT_ID` __Required__
-  The client ID for your instance.
+  The client ID for your instance. Defaults to `testClient`.
 * `OAUTH_CLIENT_SECRET` __Required__
-  The client secret for your instance.
+  The client secret for your instance. Defaults to `testSecret`.
   
 ## Sessions
 
@@ -83,24 +83,24 @@ To start guestlister execute the following steps.
 
 Start a mongodb instance:
 
-```
+```bash
 mkdir /tmp/o2r-mongodb-data
 mongod --dbpath /tmp/o2r-mongodb-data
 ```
 
 Start the o2r-bouncer:
 
-```
-DEBUG=* OAUTH_CLIENT_ID=clientid OAUTH_CLIENT_SECRET=secret npm start
+```bash
+DEBUG=* npm start
 ```
 
 Start the guestlister:
 
 ```bash
-DEBUG=* OAUTH_CLIENT_ID=clientid OAUTH_CLIENT_SECRET=secret npm start
+DEBUG=* npm start
 ```
 
-You can then start the offline login process by opening `http://localhost:8383/api/v1/oauth/authorize?response_type=code&scope=/authenticate&client_id=<your-client-ID>&redirect_uri=http://localhost:8083/api/v1/auth/login` and select a test user afterwards.
+You can then start the offline login process by opening `http://localhost:8383/oauth/authorize?response_type=code&scope=/authenticate&client_id=testClient&redirect_uri=http://localhost:8083/api/v1/auth/login` and select a test user afterwards.
 
 ## License
 
