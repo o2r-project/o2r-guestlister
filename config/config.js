@@ -62,6 +62,10 @@ c.oauth.default = {
 // session secret
 c.sessionsecret = env.SESSION_SECRET || 'guestlisterSecret';
 
+// session secret used by bouncer to encode the session cookie as bouncer would do it
+c.sessionsecret_bouncer = env.SESSION_SECRET_BOUNCER || 'o2r';
+c.cookiePath = '/oauth/cookie';
+
 // user levels
 c.user = {};
 c.user.level = {};
