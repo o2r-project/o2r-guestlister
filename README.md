@@ -2,7 +2,8 @@
 
 [![](https://images.microbadger.com/badges/image/o2rproject/o2r-guestlister.svg)](https://microbadger.com/images/o2rproject/o2r-guestlister "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/o2rproject/o2r-guestlister.svg)](https://microbadger.com/images/o2rproject/o2r-guestlister "Get your own version badge on microbadger.com")
 
-A Node.js OAuth2 server implementation to allow offline login with o2r-bouncer as part of the [o2r reference-implementation](https://github.com/o2r-project/reference-implementation). For more inforamtion about OAuth2 see the OAUth2 [documentation](https://oauth.net/2/).
+A Node.js OAuth2 server implementation to allow offline login with o2r-bouncer as part of the [o2r reference-implementation](https://github.com/o2r-project/reference-implementation).
+For more information about OAuth2 see the OAUth2 [documentation](https://oauth.net/2/).
 
 Based on the repository https://github.com/gerges-beshay/oauth2orize-examples and the underlying OAuth2 server implementation [oauth2orize](https://www.npmjs.com/package/oauth2orize).
 
@@ -10,6 +11,8 @@ Requirements:
 
 - nodejs `>= 6.2`
 - npm
+
+**Important Note:** this server is _not for production_ but only for development and demonstration, because it exposes passwords (in the config file) and private session cookies via API.
 
 ## Endpoints
 
@@ -31,7 +34,8 @@ The service creates three test users when starting the service:
 
 The levels are explained in the [o2r-web-api entry on user levels](http://o2r.info/o2r-web-api/user/#user-levels).
 
-The demo data makes exploration of the o2r platform with different user roles possible. It can be configured by editing the `testUsers` object in `config/config.js`.
+The demo data makes exploration of the o2r platform with different user roles possible.
+It can be configured by editing the `testUsers` object in `config/config.js`.
 
 ## Dockerfile
 
