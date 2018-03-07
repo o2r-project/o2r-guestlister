@@ -31,6 +31,7 @@ const mongojs = require('mongojs');
 const mongoose = require('mongoose');
 const backoff = require('backoff');
 const MongoStore = require('connect-mongodb-session')(session);
+const signature = require('cookie-signature');
 
 // mongo connection
 const dbURI = config.mongo.location + config.mongo.database;
@@ -51,10 +52,43 @@ process.on('SIGINT', function () {
         debug('Mongoose default connection disconnected through app termination signal (SIGINT)');
         process.exit(0);
     });
+    db.close();
 });
+
+mongoStringSplit = config.mongo.location.split('mongodb://');
+host = mongoStringSplit[mongoStringSplit.length - 1];
+debug('Connecting to host %s to write test users into database and to get session cookies', host);
+const db = mongojs(host + config.mongo.database, ['users', 'sessions']);
 
 // Passport configuration
 require('./lib/auth');
+
+// Helper function to expose the cookies publicly for testing
+getCookiePublicly = (req, res) => {
+    let userId = req.params.userId;
+
+    // get the latest session for the user
+    db.sessions
+        .find({ "session.passport.user": userId })
+        .sort({ expires: -1 }, (err, doc) => {
+            if (err) {
+                debug('Error finding session for user %s: %o', userId, err);
+                res.status(500).send(err);
+            }
+            if (doc.length < 1) {
+                debug('No session found for %s', userId);
+                res.status(400).send({ error: "no session found for user " + userId });
+            } else {
+                // calculate cookie string https://github.com/expressjs/session/blob/5c04910e1a10a7ca4cdeb05f4e4d5d43e9533e0c/index.js#L631
+                signed_cookie = 's:' + signature.sign(doc[0]._id.toString(), config.sessionsecret_bouncer);
+
+                debug('Returning cookie for user %s: %s', userId, signed_cookie);
+                res.status(200).send({ cookie: signed_cookie, user: userId });
+            }
+        });
+
+}
+
 
 function initApp(callback) {
     debug('Initialize application');
@@ -93,16 +127,12 @@ function initApp(callback) {
     app.get(config.oauth.authorizationPath, routes.oauth2.authorization);
     app.post(config.oauth.tokenPath, routes.oauth2.token);
 
+    app.get(config.cookiePath + '/:userId', getCookiePublicly);
+
     //Create test users in database
     debug('Creating test users: %O', config.testUsers);
-
-    let mongoStringSplit = config.mongo.location.split('mongodb://');
-    let host = mongoStringSplit[mongoStringSplit.length - 1];
-    debug('Connecting to host %s to write test users into database.', host);
-    const db = mongojs(host + config.mongo.database, ['users']);
-
     function saveUserAsync(user) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             db.users.save(user, function (err, doc) {
                 if (err) {
                     debug('Error saving user: %o', err);
@@ -110,16 +140,17 @@ function initApp(callback) {
                 }
                 return resolve([doc]);
             });
-        });        }
+        });
+    }
 
     let promises = [];
 
-    Object.keys(config.testUsers).forEach(function(key){
+    Object.keys(config.testUsers).forEach(function (key) {
         promises.push(saveUserAsync(config.testUsers[key]))
     });
 
     Promise.all(promises)
-        .then(function(allData) {
+        .then(function (allData) {
             debug('Successfully added test users to the database %s', config.mongo.database);
             try {
                 app.listen(config.net.port, () => {

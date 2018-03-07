@@ -54,13 +54,17 @@ c.oauth.default = {
     authorizationURL: env.OAUTH_URL_AUTHORIZATION || c.net.host + c.net.port + c.oauth.authorizationPath,
     tokenURL: env.OAUTH_URL_TOKEN || c.net.host + c.net.port + c.oauth.tokenPath,
     callbackURL: env.OAUTH_URL_CALLBACK || c.net.host + c.net.bouncer_port + '/login',
-    clientID: env.OAUTH_CLIENT_ID,
-    clientSecret: env.OAUTH_CLIENT_SECRET,
+    clientID: env.OAUTH_CLIENT_ID || "testClient",
+    clientSecret: env.OAUTH_CLIENT_SECRET || "testSecret",
     scope: env.OAUTH_SCOPE || '/authenticate'
 };
 
 // session secret
 c.sessionsecret = env.SESSION_SECRET || 'guestlisterSecret';
+
+// session secret used by bouncer to encode the session cookie as bouncer would do it
+c.sessionsecret_bouncer = env.SESSION_SECRET_BOUNCER || 'o2r';
+c.cookiePath = '/oauth/cookie';
 
 // user levels
 c.user = {};

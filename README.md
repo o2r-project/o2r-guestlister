@@ -2,7 +2,8 @@
 
 [![](https://images.microbadger.com/badges/image/o2rproject/o2r-guestlister.svg)](https://microbadger.com/images/o2rproject/o2r-guestlister "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/o2rproject/o2r-guestlister.svg)](https://microbadger.com/images/o2rproject/o2r-guestlister "Get your own version badge on microbadger.com")
 
-A Node.js OAuth2 server implementation to allow offline login with o2r-bouncer as part of the [o2r reference-implementation](https://github.com/o2r-project/reference-implementation). For more inforamtion about OAuth2 see the OAUth2 [documentation](https://oauth.net/2/).
+A Node.js OAuth2 server implementation to allow offline login with o2r-bouncer as part of the [o2r reference-implementation](https://github.com/o2r-project/reference-implementation).
+For more information about OAuth2 see the OAUth2 [documentation](https://oauth.net/2/).
 
 Based on the repository https://github.com/gerges-beshay/oauth2orize-examples and the underlying OAuth2 server implementation [oauth2orize](https://www.npmjs.com/package/oauth2orize).
 
@@ -11,6 +12,8 @@ Requirements:
 - nodejs `>= 6.2`
 - npm
 
+**Important Note:** this server is _not for production_ but only for development and demonstration, because it exposes passwords (in the config file) and private session cookies via API.
+
 ## Endpoints
 
 The Oauth2 server implementation allows trying out the o2r reference-implementation without going through the [ORCID](https://orcid.org/) app registration. It implements the following endpoints:
@@ -18,6 +21,7 @@ The Oauth2 server implementation allows trying out the o2r reference-implementat
 * `/oauth/authorize` Starts an authorization request granting an authorization code.
 * `/oauth/login` User login: Allows to chose between three different uses with basic, advanced and admin rights.
 * `/oauth/token` Exchange an authorization code for an access token.
+* `/oauth/cookies/<user id>` Retrieve the session cookie of test users for automatic upload.
 
 To mimic the ORCID OAuth2 implementation the demo server submits the `username` and `ORCID` ID as custom parameters in the response to the access token request.
 
@@ -31,7 +35,8 @@ The service creates three test users when starting the service:
 
 The levels are explained in the [o2r-web-api entry on user levels](http://o2r.info/o2r-web-api/user/#user-levels).
 
-The demo data makes exploration of the o2r platform with different user roles possible. It can be configured by editing the `testUsers` object in `config/config.js`.
+The demo data makes exploration of the o2r platform with different user roles possible.
+It can be configured by editing the `testUsers` object in `config/config.js`.
 
 ## Dockerfile
 
@@ -61,9 +66,9 @@ docker run --rm -it -e DEBUG=* guestlister
 * `OAUTH_SCOPE`
   Scope for the ORCID API. Defaults to `/authenticate`.
 * `OAUTH_CLIENT_ID` __Required__
-  The client ID for your instance.
+  The client ID for your instance. Defaults to `testClient`.
 * `OAUTH_CLIENT_SECRET` __Required__
-  The client secret for your instance.
+  The client secret for your instance. Defaults to `testSecret`.
   
 ## Sessions
 
@@ -79,24 +84,24 @@ To start guestlister execute the following steps.
 
 Start a mongodb instance:
 
-```
+```bash
 mkdir /tmp/o2r-mongodb-data
 mongod --dbpath /tmp/o2r-mongodb-data
 ```
 
 Start the o2r-bouncer:
 
-```
-DEBUG=* OAUTH_CLIENT_ID=clientid OAUTH_CLIENT_SECRET=secret npm start
+```bash
+DEBUG=* npm start
 ```
 
 Start the guestlister:
 
 ```bash
-DEBUG=* OAUTH_CLIENT_ID=clientid OAUTH_CLIENT_SECRET=secret npm start
+DEBUG=* npm start
 ```
 
-You can then start the offline login process by opening `http://localhost:8383/api/v1/oauth/authorize?response_type=code&scope=/authenticate&client_id=<your-client-ID>&redirect_uri=http://localhost:8083/api/v1/auth/login` and select a test user afterwards.
+You can then start the offline login process by opening `http://localhost:8383/oauth/authorize?response_type=code&scope=/authenticate&client_id=testClient&redirect_uri=http://localhost:8083/api/v1/auth/login` and select a test user afterwards.
 
 ## License
 
