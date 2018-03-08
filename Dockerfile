@@ -34,6 +34,9 @@ COPY css css
 COPY views views
 COPY app.js app.js
 
+RUN PACKAGE_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json); \
+  sed -i "s/@@VERSION@@/$PACKAGE_VERSION/g" views/login.ejs
+
 # Metadata params provided with docker build command
 ARG VERSION=dev
 ARG VCS_URL
