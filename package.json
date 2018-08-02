@@ -1,11 +1,11 @@
 {
   "name": "o2r-guestlister",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Node.js implementation for an oauth2 server allowing offline access with o2r-bouncer",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "debug": "DEBUG=guestlister node app.js"
+    "start": "node index.js",
+    "debug": "DEBUG=guestlister node index.js"
   },
   "repository": {
     "type": "git",

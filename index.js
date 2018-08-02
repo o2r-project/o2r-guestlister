@@ -35,14 +35,15 @@ const signature = require('cookie-signature');
 
 // mongo connection
 const dbURI = config.mongo.location + config.mongo.database;
-// see http://blog.mlab.com/2014/04/mongodb-driver-mongoose/#Production-ready_connection_settings and http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html and http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
-let dbOptions = {
+var dbOptions = {
     autoReconnect: true,
     reconnectTries: Number.MAX_VALUE,
     keepAlive: 30000,
     socketTimeoutMS: 30000,
-    promiseLibrary: mongoose.Promise // use ES6 promises for mongoose
-};
+    promiseLibrary: mongoose.Promise,
+    useNewUrlParser: true
+  };
+
 mongoose.connection.on('error', (err) => {
     debug('Could not connect to MongoDB @ %s: %s', dbURI, err);
 });

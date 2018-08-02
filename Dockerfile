@@ -32,7 +32,7 @@ COPY config config
 COPY lib lib
 COPY css css
 COPY views views
-COPY app.js app.js
+COPY index.js index.js
 
 RUN PACKAGE_VERSION=$(sed -nE 's/^\s*"version": "(.*?)",$/\1/p' package.json); \
   sed -i "s/@@VERSION@@/$PACKAGE_VERSION/g" views/login.ejs

@@ -56,7 +56,7 @@ docker run --rm -it -e DEBUG=* guestlister
 * `BOUNCER_PORT`
   Specifies on which port the bouncer is listening. Defaults to `8083`.
 * `GUESTLISTER_MONGODB` __Required__
-  Location for the mongo db. Defaults to `mongodb://localhost/`. You will very likely need to change this.
+  Location for the mongo db. Defaults to `mongodb://localhost:27017/`. You will very likely need to change this.
 * `GUESTLISTER_MONGODB_DATABASE`
   Which database inside the mongo db should be used. Defaults to `muncher`.
 * `OAUTH_URL_AUTHORIZATION`
