@@ -17,12 +17,12 @@
             <input name="username" type="hidden" value="<%= data.testUsers[key].username %>" />
             <input name="password" type="hidden" value="<%= data.testUsers[key].password %>" />
             <button id="regular" type="submit" ripple><%= data.testUsers[key].role %></button>
-            <span>Level<sup><a href="http://o2r.info/o2r-web-api/user/#user-levels">?</a></sup>: <code><%= data.testUsers[key].level %></code> | <a href="https://orcid.org"><img alt="ORCID logo" src="https://orcid.org/sites/default/files/images/orcid_16x16.png" width="16" height="16" hspace="4" /></a> <a href="https://sandbox.orcid.org/<%= data.testUsers[key].orcid %>">https://sandbox.orcid.org/<%= data.testUsers[key].orcid %></a></span>
+            <span>Level<sup><a href="https://o2r.info/api/user/#user-levels">?</a></sup>: <code><%= data.testUsers[key].level %></code> | <a href="https://orcid.org"><img alt="ORCID logo" src="https://orcid.org/sites/default/files/images/orcid_16x16.png" width="16" height="16" hspace="4" /></a> <a href="https://sandbox.orcid.org/<%= data.testUsers[key].orcid %>">https://sandbox.orcid.org/<%= data.testUsers[key].orcid %></a></span>
         </form>
         <% }); %>
     </div>
 
-    <footer><a href="http://o2r.info">About o2r</a></footer>
+    <footer><a href="https://o2r.info">About o2r</a></footer>
 </div>
 
 <p class="copyright">

@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/o2r-project/o2r-guestlister.git"
   },
-  "author": "o2r project (http://o2r.info)",
+  "author": "o2r project (https://o2r.info)",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/o2r-project/o2r-guestlister/issues"
