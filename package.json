@@ -1,6 +1,6 @@
 {
   "name": "o2r-guestlister",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Node.js implementation for an oauth2 server allowing offline access with o2r-bouncer",
   "main": "index.js",
   "scripts": {
@@ -19,28 +19,28 @@
   "homepage": "https://github.com/o2r-project/o2r-guestlister#readme",
   "dependencies": {
     "backoff": "^2.5.0",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "connect-ensure-login": "^0.1.1",
-    "connect-mongodb-session": "^2.0.3",
-    "cookie-parser": "^1.4.3",
-    "debug": "^3.1.0",
-    "ejs": "^2.6.1",
-    "errorhandler": "^1.5.0",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "mongojs": "^2.6.0",
-    "mongoose": "^5.2.6",
+    "connect-mongodb-session": "^2.3.1",
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "ejs": "^3.0.1",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongojs": "^3.1.0",
+    "mongoose": "^5.9.4",
     "oauth2orize": "^1.11.0",
-    "passport": "^0.4.0",
+    "passport": "^0.4.1",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "passport-oauth2-client-password": "^0.1.2",
-    "yn": "^2.0.0"
+    "yn": "^4.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.2.0",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1"
   }
 }
