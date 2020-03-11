@@ -46,7 +46,7 @@ ARG BUILD_DATE
 # Metadata http://label-schema.org/rc1/
 LABEL maintainer="o2r-project <https://o2r.info>" \
   org.label-schema.vendor="o2r guestlister" \
-  org.label-schema.url="http://o2r.info" \
+  org.label-schema.url="https://o2r.info" \
   org.label-schema.name="o2r guestlister" \
   org.label-schema.description="offline login for o2r reference-implementation" \
   org.label-schema.version=$VERSION \
